@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AES-crypto-js (v4.0.0)</title>
+  <meta name="description" content="JavaScript library of crypto standards.">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></script>
+  <script type="text/javascript">
+
+	var securityKey16 = 'Skesj(eE%32sLOap';
+	var securityKey24 = 'Skesj(eE%32sLOapA9e2snEw';
+	var securityKey32 = 'Skesj(eE%32sLOapA9e2snEwEeopsWui';
+	var iv = '1234567890123456';
+	var config = {
+		'securityKey' : securityKey16,
+		'iv' : iv,
+	};
+	var plainText = '我是python内容';
+	
+     /**
+     * 加密
+     * @param string $plainText 明文
+     * @return bool|string
+     */
+    function encrypt(plainText)
+    {
+		var securityKey = CryptoJS.enc.Utf8.parse(config.securityKey);
+		var iv = CryptoJS.enc.Utf8.parse(config.iv);
+		var encrypted = CryptoJS.AES.encrypt(plainText, securityKey, {
+			iv: iv,
+			mode: CryptoJS.mode.CBC,
+			padding: CryptoJS.pad.Pkcs7
+		});
+		return encrypted.toString();
+    }
+	
+    /**
+     * 解密
+     * @param string $cipherText 密文
+     * @return bool|string
+     */
+    function decrypt(cipherText)
+    {
+		var securityKey = CryptoJS.enc.Utf8.parse(config.securityKey);
+		var iv = CryptoJS.enc.Utf8.parse(config.iv);
+		var decrypted = CryptoJS.AES.decrypt(cipherText,securityKey,{
+			iv:iv,
+			mode: CryptoJS.mode.CBC,
+			padding:CryptoJS.pad.Pkcs7
+		});
+		return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+	
+	//加密
+	console.log('JavaScript程序');
+	
+	var cipherText = encrypt(plainText);
+	console.log('加密前的明文：'+plainText);
+	
+	console.log('加密后的密文：'+ cipherText);
+	//解密
+	var outPlainText = decrypt(cipherText);
+
+	console.log('解密后明文：'+ outPlainText);
+	
+  </script>
+</head>
+<body>
+<div>
+</div>
+</body>
+</html>
