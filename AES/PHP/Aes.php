@@ -176,7 +176,7 @@ class Aes
      */
     private function isSupportCipherMethod(string $method): bool
     {
-        $method = strtoupper($method);
+        $method = strtolower($method);
         if (in_array($method, openssl_get_cipher_methods(), true)) {
             return true;
         }
